@@ -1,6 +1,6 @@
 package repository;
 
-import dto.AdressePersonerDTO;
+
 import model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -57,42 +57,5 @@ public class Repository {
         } else {
             throw new RuntimeException("Kunne ikke indsætte person");
         }
-    }
-
-    // Indsæt en person og en tilhørende adresse via batchUpdate i to trin
-    public AdressePersonerDTO insertPersonWithAdresse(String personName, String street, String city) {
-        // Opret adresse og hent det genererede ID
-        Adresse adresse = insertAdresse(street, city);
-
-        // Indsæt person knyttet til denne adresse
-        Person person = insertPerson(personName, adresse.getId());
-
-        // Returnér en DTO med adresse og en liste af personer (startende med én person)
-        return new AdressePersonerDTO(adresse, List.of(person));
-    }
-
-    public List<AdressePersonerDTO> getAllAdressesWithPersons() {
-        String adresseSql = "SELECT * FROM adresse";
-        List<Adresse> adresser = jdbcTemplate.query(adresseSql, new AdresseRowMapper());
-
-        List<AdressePersonerDTO> resultater = new ArrayList<>();
-
-        for (Adresse adresse : adresser) {
-            String personerSql = "SELECT * FROM person WHERE adresse_id = ?";
-            List<Person> personer = jdbcTemplate.query(personerSql, new PersonRowMapperExample3(), adresse.getId());
-
-            resultater.add(new AdressePersonerDTO(adresse, personer));
-        }
-        return resultater;
-    }
-
-    public AdressePersonerDTO getAdressePersoner(int adresseId) {
-        String adresseSql = "SELECT * FROM adresse WHERE id = ?";
-        Adresse adresse = jdbcTemplate.queryForObject(adresseSql, new AdresseRowMapper(), adresseId);
-
-        String personerSql = "SELECT * FROM person WHERE adresse_id = ?";
-        List<Person> personer = jdbcTemplate.query(personerSql, new PersonRowMapperExample3(), adresseId);
-
-        return new AdressePersonerDTO(adresse, personer);
     }
 }

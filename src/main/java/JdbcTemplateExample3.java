@@ -1,5 +1,4 @@
 import model.Adresse;
-import dto.AdressePersonerDTO;
 import model.Person;
 import repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,20 +44,6 @@ public class JdbcTemplateExample3 {
         System.out.println("Adresse oprettet: " + adresse);
         System.out.println("Person oprettet: " + person1);
         System.out.println("Person oprettet: " + person2);
-
-        System.out.println("\nIndsæt en person der bor på en adresse");
-        AdressePersonerDTO dto1 = repository.insertPersonWithAdresse("Pia", "Haraldsgade 7", "Odense");
-        System.out.println(dto1);
-
-        System.out.println("\nAlle personer og adresser");
-        List<AdressePersonerDTO> adressePersoner = repository.getAllAdressesWithPersons();
-        for (AdressePersonerDTO dto : adressePersoner) {
-            System.out.println(dto);
-        }
-
-        System.out.println("\nAlle personer tilknyttet adresse 1");
-        AdressePersonerDTO dto = repository.getAdressePersoner(1);
-        System.out.println(dto);
     }
 }
 
