@@ -2,12 +2,9 @@ import model.Person;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.getenv;
 
 public class JdbcTemplateExample1 {
 
@@ -19,7 +16,6 @@ public class JdbcTemplateExample1 {
         // Opret JdbcTemplate med DataSource
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        //jdbcTemplate.execute("USE jdbctemplate_test");
         // Slet eksisterende tabeller, hvis de findes
         jdbcTemplate.execute("DROP TABLE IF EXISTS person");
 

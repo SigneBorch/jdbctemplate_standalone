@@ -3,9 +3,7 @@ import model.Person;
 import repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import javax.sql.DataSource;
-import java.util.List;
 
 public class JdbcTemplateExample3 {
     public static void main(String[] args) {
